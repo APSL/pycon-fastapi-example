@@ -1,5 +1,13 @@
 # Guía paso a paso
 
+## Añadir validadores de esquemas y ORM
+
+* Instalación de beanie (ODM [object-document mapper] basado en pydantic).
+* Crear modelos para la validación de request y response de los endpoints.
+* Actualizar endpoints con los modelos.
+* Eliminar get_db, no será necesario gracias a beanie. 
+
+
 ## Añadir endpoint con accesos a base de datos
 
 * Instalación de "motor" (driver para conexiones a mongo de manera asíncrona).
