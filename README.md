@@ -1,5 +1,11 @@
 # Guía paso a paso
 
+## Añadir logs a nuestra API
+
+* Definir ruta del fichero de configuración de los logs en el settings.
+* Añadir carga de la configuración de logs en main.py.
+* Usar los logs importando `logging` y registrar de la mejor manera posible toda invocación a nuestros endpoints.
+
 
 ## Agrupar el código y leer constantes de settings
 
