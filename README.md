@@ -1,5 +1,17 @@
 # Guía paso a paso
 
+
+## 4. Agrupar el código y leer constantes de settings
+
+* Instalación de pydantic-settings para las constantes del proyecto
+* Mover a models/ los modelos
+* Mover a routers/ los endpoints y agruparlos por tipo
+* Generar settings para las constantes del proyecto
+* Crear .env y .secrets para las constantes públicas y privadas
+* Adaptar código en main.py
+* Nuevo comando para ejecutar el proyecto: `python src/run.py`
+
+
 ## 3. Añadir validadores de esquemas y ORM
 
 * Instalación de beanie (ODM [object-document mapper] basado en pydantic).
