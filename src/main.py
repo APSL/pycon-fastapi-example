@@ -1,4 +1,4 @@
-import logging
+import logging.config
 
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
@@ -11,6 +11,7 @@ from models.posts import PostDocument
 from routers import posts
 
 logger = logging.getLogger(__name__)
+logging.config.fileConfig(settings.logging_file_path, disable_existing_loggers=False)
 
 app = FastAPI()
 app.include_router(posts.router)

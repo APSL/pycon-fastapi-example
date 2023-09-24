@@ -12,6 +12,7 @@ class Settings(BaseSettings):
     db_username: str
     db_password: str
 
+    logging_file_path: str = os.path.join(PROJECT_PATH, "config.d/logging.conf")
     static_path: str = os.path.join(os.path.dirname(os.path.realpath(__file__)), "static")
 
     class Config:
