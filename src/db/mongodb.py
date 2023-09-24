@@ -1,4 +1,4 @@
-from motor.motor_asyncio import AsyncIOMotorClient, AsyncIOMotorDatabase
+from motor.motor_asyncio import AsyncIOMotorClient
 
 
 class MongoDB:
@@ -6,8 +6,3 @@ class MongoDB:
 
 
 mongo_db = MongoDB()
-
-
-def get_db() -> AsyncIOMotorDatabase:
-    """Get NOSQL db"""
-    return mongo_db.client["pycon"]
