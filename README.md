@@ -1,5 +1,14 @@
 # Guía paso a paso
 
+## 6. Versionado y obsolescencia de endpoints
+
+* Editar modelo para las pruebas.
+* Generar un nuevo endpoint.
+* Instalación de fastapi-versioning.
+* Agregar versionado en main.py
+* Generar la versión superior del endpoint anterior y marcar como deprecado el anterior.
+
+
 ## 5. Añadir logs a nuestra API
 
 * Definir ruta del fichero de configuración de los logs en el settings.

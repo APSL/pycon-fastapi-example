@@ -3,3 +3,4 @@ uvicorn==0.22.0
 motor==3.3.1
 beanie==1.22.6
 pydantic-settings==2.0.3
+fastapi-versioning==0.10.0
