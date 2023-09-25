@@ -2,6 +2,7 @@ import logging.config
 
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
+from fastapi_versioning import VersionedFastAPI
 from motor.motor_asyncio import AsyncIOMotorClient
 from beanie import init_beanie
 
@@ -15,6 +16,7 @@ logging.config.fileConfig(settings.logging_file_path, disable_existing_loggers=F
 
 app = FastAPI()
 app.include_router(posts.router)
+app = VersionedFastAPI(app, enable_latest=True, version_format="{major}.{minor}", prefix_format="/v{major}-{minor}")
 app.mount("/static", StaticFiles(directory=settings.static_path), name="static")
 
 
