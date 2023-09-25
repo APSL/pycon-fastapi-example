@@ -1,4 +1,5 @@
 import logging
+from typing import List
 
 from fastapi import APIRouter, HTTPException, status
 from fastapi_versioning import version
@@ -16,7 +17,7 @@ router = APIRouter(
 )
 
 
-@router.get("/", response_model=list[Post])
+@router.get("/", response_model=List[Post])
 async def read_posts(skip: int = 0, limit: int = 10):
     results = await PostDocument.find({}).skip(skip).limit(limit).to_list()
     logger.info(f"Retrieve {len(results)} posts")
