@@ -8,6 +8,7 @@ class Post(BaseModel):
     title: Indexed(str)
     author: str
     created_at: datetime = Field(default_factory=datetime.now)
+    likes: int = 0
     model_config = {
         "json_schema_extra": {
             "examples": [

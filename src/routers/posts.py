@@ -1,6 +1,6 @@
 import logging
 
-from fastapi import APIRouter, status
+from fastapi import APIRouter, HTTPException, status
 
 from models.posts import Post, PostDocument
 from enums import RouterTag
@@ -29,3 +29,14 @@ async def create_posts(post: Post):
     await PostDocument.save(document)
     post_data = document.model_dump(exclude_unset=True)
     logger.info(f"New post created: {post_data}")
+
+
+@router.put("/{title}/like", status_code=status.HTTP_200_OK)
+async def like_posts(title: str, likes: int = 1) -> int:
+    result = await PostDocument.find_one(PostDocument.title == title).inc({str(PostDocument.likes): likes})
+    if result.modified_count:
+        logger.info(f"Liked++ {title}")
+        post = await PostDocument.find_one(PostDocument.title == title)
+        return post.likes
+    else:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='Post not found')
