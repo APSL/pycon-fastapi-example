@@ -7,9 +7,11 @@ PROJECT_PATH = os.path.abspath(os.path.dirname(__name__))
 
 
 class Settings(BaseSettings):
+    app_name: str
+    favicon_path: str = 'static/favicon.ico'
     db_host: str
     db_name: str
-    db_username: str
+    db_username: str = "admin"
     db_password: str
 
     logging_file_path: str = os.path.join(PROJECT_PATH, "config.d/logging.conf")

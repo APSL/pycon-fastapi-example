@@ -3,3 +3,4 @@
 .secrets
 pyproject.toml
 env
+.pytest_cache

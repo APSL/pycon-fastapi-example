@@ -2,37 +2,39 @@ import logging.config
 
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 from fastapi_versioning import VersionedFastAPI
-from motor.motor_asyncio import AsyncIOMotorClient
-from beanie import init_beanie
 
-from db.mongodb import mongo_db
+from db import init_db
 from config import settings
-from models.posts import PostDocument
+from models.posts import Post
 from routers import posts
 
 logger = logging.getLogger(__name__)
 logging.config.fileConfig(settings.logging_file_path, disable_existing_loggers=False)
 
-app = FastAPI()
+app = FastAPI(title=settings.app_name)
+
+# routers
 app.include_router(posts.router)
+
+# version
 app = VersionedFastAPI(app, enable_latest=True, version_format="{major}.{minor}", prefix_format="/v{major}-{minor}")
+
+# static files
 app.mount("/static", StaticFiles(directory=settings.static_path), name="static")
 
-
-@app.on_event("startup")
-async def startup_db_client():
-    url = f"mongodb+srv://{settings.db_username}:{settings.db_password}@{settings.db_host}/?retryWrites=true&w=majority"
-    mongo_db.client = AsyncIOMotorClient(url)
-    db = mongo_db.client[settings.db_name]
-    await init_beanie(db, document_models=[PostDocument])
+# initialize beanie with all documents
+init_db(app, [Post])
 
 
-@app.on_event("shutdown")
-async def shutdown_db_client():
-    mongo_db.client.close()
+@app.get("/ping")
+async def ping() -> str:
+    logger.info("Pong!")
+    return "pong"
 
 
-@app.get("/")
-async def ping():
-    return {"topic": "Hi World!"}
+@app.get('/favicon.ico', include_in_schema=False)
+async def favicon() -> FileResponse:
+    """Gets favicon of app"""
+    return FileResponse(settings.favicon_path)
